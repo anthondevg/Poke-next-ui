@@ -1,7 +1,8 @@
 "use client";
 import React from "react";
 import { redirect } from "next/navigation";
-import { useSession } from "next-auth/react";
+import { signOut, useSession } from "next-auth/react";
+import Button from "@/components/Button";
 
 export default function Page() {
   const { data: session } = useSession({
@@ -11,5 +12,10 @@ export default function Page() {
     },
   });
 
-  return <div>Pokedex Dashboard {session?.user?.name}</div>;
+  return (
+    <div>
+      Pokedex Dashboard {session?.user?.name}{" "}
+      <Button onClick={signOut}>Cerrar sesion</Button>
+    </div>
+  );
 }
