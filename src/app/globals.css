@@ -1,23 +1,28 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-:root {
-  --foreground-hex: #010129;
-  --bg-darke: #030317;
-  --pokemon-red: #CD2D35;
-  --next-cyan: #47D0B5;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: #010129;
-    --background-start-rgb: #010129;
-    --background-end-rgb: #010129;
-  }
-}
-
 body {
-  color: white;
-  background: var(--foreground-hex);
+    color: white;
+}
+
+span{
+    padding: 0;
+}
+
+.basicBadge { 
+    border-radius: 0.7rem 0.3rem;
+    border: 2px solid rgba(67, 67, 67, 0.83);
+    background: linear-gradient(180deg, #FFF 0%, #999 13.02%, #FFF 21.35%, #999 33.33%, #6A6A6A 81.77%, #959595 100%);
+    padding-top: 0;
+    padding-bottom: 0;
+}
+
+.text-stroke-3 {
+    text-shadow: -0.8px -0.8px 0 white, 0.8px -0.8px 0 white, -0.8px 0.8px 0 white, 0.8px 0.8px 0 white;
+    @apply text-[#575757];
+}
+
+.text-stroke-3-white {
+    text-shadow: -0.8px -0.8px 0 #575757, 0.8px -0.8px 0 #575757, -0.8px 0.8px 0 #575757, 0.8px 0.8px 0 #575757;
+    @apply text-white-pkn;
 }
