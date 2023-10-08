@@ -4,5 +4,6 @@ type PokemonRef = {
 };
 type PokemonCardsProps = {
   pokemonUrl: string;
+  className?: string;
 };
 export type { PokemonRef, PokemonCardsProps };

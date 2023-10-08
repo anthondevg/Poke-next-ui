@@ -14,6 +14,7 @@
     "next-auth": "^4.23.2",
     "react": "^18",
     "react-dom": "^18",
+    "react-uuid": "^2.0.0",
     "tailwind-merge": "^1.14.0",
     "zustand": "^4.4.3"
   },

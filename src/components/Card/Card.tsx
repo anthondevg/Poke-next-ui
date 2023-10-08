@@ -8,9 +8,15 @@ type CardProps = {
   borderColor: string;
   hp: number;
   children: React.ReactNode;
+  className?: string;
 };
 
-export default function Card({ children, borderColor, hp }: CardProps) {
+export default function Card({
+  children,
+  borderColor,
+  hp,
+  className,
+}: CardProps) {
   const [color, setColor] = useState("");
   // init tailwind classes to be available for the bul
   getPokemonClass("grass", "border");
@@ -21,23 +27,25 @@ export default function Card({ children, borderColor, hp }: CardProps) {
 
   return (
     <div
-      className={`rounded-2xl hover:animate-pulse relative p-3 pb-6 border-2 bg-gradient-to-b from-black to-white/0 z-0 ${getPokemonClass(
+      className={`rounded-xl shadow-lg  relative p-3 pb-6 border-4 bg-gradient-to-b from-black to-zinc-900 z-0 ${getPokemonClass(
         color,
         "border"
-      )}`}
+      )} ${className}`}
     >
       <span
-        className={`basicBadge absolute top-2 left-3 text-stroke-3 uppercase px-2 p-0 font-bold text-md  ${AldrichFont.className}`}
+        className={`basicBadge absolute top-2 left-3 text-stroke-3 uppercase px-2 p-0 font-bold text-md lg:text-xl  ${AldrichFont.className}`}
       >
         basic
       </span>
       <div className="flex justify-between">
         <div></div>
         <div className="flex">
-          <span className="font-bold text-stroke-3 mr-2">HP {hp}</span>
+          <span className="font-bold text-stroke-3 mr-2 lg:text-xl">
+            HP {hp}
+          </span>
 
           <div
-            className={`h-6 w-6 rounded-full z-50 ${getPokemonClass(
+            className={`h-6 w-6 lg:w-8 lg:h-8 rounded-full z-50 ${getPokemonClass(
               color,
               "bg"
             )}  shadow-xl`}
@@ -48,8 +56,8 @@ export default function Card({ children, borderColor, hp }: CardProps) {
 
       <div className="absolute right-0 bottom-0 -z-10">
         <svg
-          width="96"
-          height="74"
+          width="150"
+          height="136"
           viewBox="0 0 96 74"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
@@ -67,8 +75,8 @@ export default function Card({ children, borderColor, hp }: CardProps) {
               y2="74"
               gradientUnits="userSpaceOnUse"
             >
-              <stop stop-color="#282828" />
-              <stop offset="0.697917" stop-color="#282828" stop-opacity="0" />
+              <stop stopColor="#282828" />
+              <stop offset="0.697917" stopColor="#282828" stopOpacity="0" />
             </linearGradient>
           </defs>
         </svg>
@@ -107,7 +115,7 @@ function getPokemonClass(pokemonType: string, htmlProperty: string) {
     poison: "bg-purple-500",
     fairy: "bg-pink-700",
     fighting: "bg-brown-600",
-    fire: "bg-orange-500",
+    fire: "bg-fire-pkn",
     flying: "bg-white",
     ghost: "bg-purple-900",
     water: "bg-blue-400",

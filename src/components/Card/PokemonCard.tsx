@@ -2,57 +2,71 @@
 import React, { useEffect, useState } from "react";
 import Card from "./Card";
 import Link from "next/link";
-import { getPokemonType, getSprite } from "@/utilities/formatters";
+import {
+  formatMoveName,
+  getPokemonType,
+  getSprite,
+} from "@/utilities/formatters";
 import { PokemonCardsProps } from "@/models/Pokemon";
+import { cn } from "@/utilities/cn";
+import uuid from "react-uuid";
+import { useFetchPokeApi } from "@/hooks/pokeapi";
 
-export default function PokemonCard({ pokemonUrl }: PokemonCardsProps) {
-  const [pokemon, setPokemon] = useState({} as any);
+export default function PokemonCard({
+  pokemonUrl,
+  className,
+}: PokemonCardsProps) {
+  const { pokemon, isFetching } = useFetchPokeApi(pokemonUrl);
 
-  useEffect(() => {
-    fetch(pokemonUrl)
-      .then((res) => res.json())
-      .then((pokemon) => {
-        console.log(pokemon);
-        setPokemon(pokemon);
-      });
-  }, []);
-
+  if (isFetching) return <div className="text-2xl text-white">Cargando...</div>;
+  if (!pokemon.sprites) return;
   return (
-    <>
-      {pokemon.sprites ? (
-        <div className="lg:w-72 z-0 ">
-          <Link href={"/pokedex/1"}>
-            <Card
-              borderColor={getPokemonType(pokemon)}
-              hp={pokemon.stats[0].base_stat}
-            >
-              <img src={getSprite(pokemon)} className="w-36 mt-4 h-36 m-auto" />
-              <div className="text-center">
-                <p className="text-stroke-3-white text-3xl font-black text-center w-full capitalize">
-                  {pokemon.name}
-                </p>
-                <p className="font-bold bg-gradient-to-b from-white to-slate-900/5 inline-block text-transparent bg-clip-text">
-                  Type {getPokemonType(pokemon)}
-                </p>
-              </div>
+    <div className={cn("", className)}>
+      <Link href={`/pokedex/${pokemon.name}`}>
+        <Card
+          borderColor={getPokemonType(pokemon)}
+          hp={pokemon.stats[0].base_stat}
+          className={className}
+        >
+          <img src={getSprite(pokemon)} className="w-36 mt-4 h-36 m-auto" />
+          <div className="text-center">
+            <p className="text-stroke-3-white text-3xl lg:text-[2.2rem] font-black text-center w-full capitalize">
+              {pokemon.name}
+            </p>
+            <p className="font-bold bg-gradient-to-b lg:text-xl mt-2 from-white to-slate-900/5 inline-block text-transparent bg-clip-text">
+              Type {getPokemonType(pokemon)}
+            </p>
+          </div>
 
-              <div className="z-10 mt-4">
-                <div className="flex font-bold justify-between">
-                  <p>Ataque Rapido</p> <p>90</p>
-                </div>
-                <div className="flex z-50 font-bold justify-between">
-                  <p>Ataque Rapido</p> <p>90</p>
-                </div>
-                <div className="flex font-bold justify-between">
-                  <p>Ataque Rapido</p> <p>90</p>
-                </div>
-              </div>
-            </Card>
-          </Link>
-        </div>
-      ) : (
-        <div>Loading :D...</div>
-      )}
-    </>
+          <div className="z-10 mt-4 lg:mt-6 flex justify-evenly">
+            <div className="flex items-center flex-col">
+              {pokemon.abilities.map((ability: any) => {
+                return (
+                  <div
+                    key={uuid()}
+                    className="flex flex-col font-bold text-stroke-3"
+                  >
+                    <p>{formatMoveName(ability.ability.name)}</p>
+                  </div>
+                );
+              })}
+            </div>
+
+            <div className="flex items-center flex-col">
+              {pokemon.moves.slice(0, 2).map((move: any) => {
+                return (
+                  <div
+                    key={uuid()}
+                    className="flex font-bold text-stroke-3 justify-between"
+                  >
+                    <p>{formatMoveName(move.move.name)}</p>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        </Card>
+      </Link>
+    </div>
   );
 }

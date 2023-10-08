@@ -23,6 +23,6 @@ span{
 }
 
 .text-stroke-3-white {
-    text-shadow: -0.8px -0.8px 0 #575757, 0.8px -0.8px 0 #575757, -0.8px 0.8px 0 #575757, 0.8px 0.8px 0 #575757;
+    text-shadow: -1.2px -1.2px 0 #727272, 1.2px -1.2px 0 #727272, -1.2px 1.2px 0 #727272, 1.2px 1.2px 0 #727272;
     @apply text-white-pkn;
 }

@@ -2,10 +2,10 @@ import React from "react";
 
 export default function Searchbar() {
   return (
-    <form className="py-4 w-full flex justify-between">
+    <form className="py-4 flex justify-between w-1/2 mb-4">
       <input
         type="text"
-        className=" bg-zinc-900 w-full py-3 rounded border-2 border-white px-4"
+        className=" bg-darker-pkn w-full py-3 rounded border-2 border-gray-50/10 px-4"
         placeholder="Search Pokemon"
       />
       <button className="bg-cyan-pkn px-4 ml-4 rounded-sm border-cyan-pnk/50 border-2">
