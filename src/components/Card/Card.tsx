@@ -27,25 +27,25 @@ export default function Card({
 
   return (
     <div
-      className={`rounded-xl shadow-lg  relative p-3 pb-6 border-4 bg-gradient-to-b from-black to-zinc-900 z-0 ${getPokemonClass(
+      className={`rounded-xl shadow-lg h-[23rem] hover:border   ${getPokemonClass(
         color,
         "border"
-      )} ${className}`}
+      )}  relative p-3 pb-6 bg-gradient-to-b from-black to-zinc-800 hover:bg-black z-0  ${className}`}
     >
       <span
-        className={`basicBadge absolute top-2 left-3 text-stroke-3 uppercase px-2 p-0 font-bold text-md lg:text-xl  ${AldrichFont.className}`}
+        className={`basicBadge absolute top-2 left-3 text-stroke-3 uppercase px-2 p-0 font-bold text-md lg:text-lg  ${AldrichFont.className}`}
       >
         basic
       </span>
       <div className="flex justify-between">
         <div></div>
-        <div className="flex">
-          <span className="font-bold text-stroke-3 mr-2 lg:text-xl">
+        <div className="flex items-center">
+          <span className="font-bold text-stroke-3 mr-2 lg:text-lg">
             HP {hp}
           </span>
 
           <div
-            className={`h-6 w-6 lg:w-8 lg:h-8 rounded-full z-50 ${getPokemonClass(
+            className={`h-6 w-6 lg:w-5 lg:h-5 rounded-full z-50 ${getPokemonClass(
               color,
               "bg"
             )}  shadow-xl`}
@@ -75,8 +75,8 @@ export default function Card({
               y2="74"
               gradientUnits="userSpaceOnUse"
             >
-              <stop stopColor="#282828" />
-              <stop offset="0.697917" stopColor="#282828" stopOpacity="0" />
+              <stop stopColor="black" />
+              <stop offset="0.697917" stopColor="black" stopOpacity="0" />
             </linearGradient>
           </defs>
         </svg>

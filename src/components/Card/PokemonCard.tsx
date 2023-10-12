@@ -11,6 +11,8 @@ import { PokemonCardsProps } from "@/models/Pokemon";
 import { cn } from "@/utilities/cn";
 import uuid from "react-uuid";
 import { useFetchPokeApi } from "@/hooks/pokeapi";
+import { motion } from "framer-motion";
+import PokemonCardSkeleton from "../Skeleton/PokemonCardSkeleton";
 
 export default function PokemonCard({
   pokemonUrl,
@@ -18,54 +20,55 @@ export default function PokemonCard({
 }: PokemonCardsProps) {
   const { pokemon, isFetching } = useFetchPokeApi(pokemonUrl);
 
-  if (isFetching) return <div className="text-2xl text-white">Cargando...</div>;
+  if (isFetching) return <PokemonCardSkeleton />;
   if (!pokemon.sprites) return;
   return (
-    <div className={cn("", className)}>
+    <div className={cn("grid-flow-row", className)}>
       <Link href={`/pokedex/${pokemon.name}`}>
-        <Card
-          borderColor={getPokemonType(pokemon)}
-          hp={pokemon.stats[0].base_stat}
-          className={className}
+        <motion.div
+          animate={{ y: 5 }}
+          whileHover={{ y: -2, shadow: "10px 10px 0 rgba(0, 0, 0, 0.2)" }}
+          drag
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          dragConstraints={{
+            top: -50,
+            left: -50,
+            right: 50,
+            bottom: 50,
+          }}
         >
-          <img src={getSprite(pokemon)} className="w-36 mt-4 h-36 m-auto" />
-          <div className="text-center">
-            <p className="text-stroke-3-white text-3xl lg:text-[2.2rem] font-black text-center w-full capitalize">
-              {pokemon.name}
-            </p>
-            <p className="font-bold bg-gradient-to-b lg:text-xl mt-2 from-white to-slate-900/5 inline-block text-transparent bg-clip-text">
-              Type {getPokemonType(pokemon)}
-            </p>
-          </div>
-
-          <div className="z-10 mt-4 lg:mt-6 flex justify-evenly">
-            <div className="flex items-center flex-col">
-              {pokemon.abilities.map((ability: any) => {
-                return (
-                  <div
-                    key={uuid()}
-                    className="flex flex-col font-bold text-stroke-3"
-                  >
-                    <p>{formatMoveName(ability.ability.name)}</p>
-                  </div>
-                );
-              })}
+          <Card
+            borderColor={getPokemonType(pokemon)}
+            hp={pokemon.stats[0].base_stat}
+            className={className}
+          >
+            <img src={getSprite(pokemon)} className="w-36 mt-4 h-36 m-auto" />
+            <div className="text-center">
+              <p className="text-stroke-3-white text-3xl lg:text-3xl font-black text-center w-full capitalize">
+                {pokemon.name}
+              </p>
+              <p className="font-bold bg-gradient-to-b lg:text-xl mt-2 from-white to-gray-50 inline-block text-transparent bg-clip-text">
+                Type {getPokemonType(pokemon)}
+              </p>
             </div>
 
-            <div className="flex items-center flex-col">
-              {pokemon.moves.slice(0, 2).map((move: any) => {
-                return (
-                  <div
-                    key={uuid()}
-                    className="flex font-bold text-stroke-3 justify-between"
-                  >
-                    <p>{formatMoveName(move.move.name)}</p>
-                  </div>
-                );
-              })}
+            <div className="z-10 mt-4">
+              <div className="flex flex-col pl-4">
+                {pokemon.abilities.map((ability: any) => {
+                  return (
+                    <div
+                      key={uuid()}
+                      className="flex flex-col text-sm text-gray-50"
+                    >
+                      <p>{formatMoveName(ability.ability.name)}</p>
+                    </div>
+                  );
+                })}
+              </div>
             </div>
-          </div>
-        </Card>
+          </Card>
+        </motion.div>
       </Link>
     </div>
   );
