@@ -66,26 +66,27 @@ export default function Page() {
               pokemon.stats
                 .slice(0, 4)
                 .map((stat: any) => (
-                  <Stat name={stat.stat.name} value={stat.base_stat} />
+                  <Stat
+                    key={stat.name}
+                    name={stat.stat.name}
+                    value={stat.base_stat}
+                  />
                 ))}
             <Stat name="Height" value={pokemon.height} />
             <Stat name="Weight" value={pokemon.weight} />
           </section>
           <h2 className="text-2xl text-slate-500  font-bold mb-4">Types</h2>
-
           <div className="flex gap-4">
             {pokemon.types &&
               pokemon.types.map((pokemon: any) => (
-                <PokeType type={pokemon.type.name} />
+                <PokeType key={pokemon.id} type={pokemon.type.name} />
               ))}
           </div>
           <h2 className="text-2xl text-slate-500  font-bold mb-4">Sprites</h2>
-
           {pokemon.sprites && (
             <div className="flex">
               <Sprite sprite={pokemon.sprites.front_default} />
               <Sprite sprite={pokemon.sprites.back_default} />
-
               <Sprite sprite={pokemon.sprites.front_shiny} />
               <Sprite sprite={pokemon.sprites.back_shiny} />
             </div>
