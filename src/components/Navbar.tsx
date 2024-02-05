@@ -4,7 +4,7 @@ import Link from "next/link";
 
 export default function Navbar() {
   return (
-    <nav className="bg-darker-pkn flex justify-between py-3 px-4 border-b border-slate-300/20 z-50">
+    <nav className="bg-slate-900 flex justify-between py-3 px-4 border-b border-slate-300/20 z-50">
       <Link href="/pokedex">
         <svg
           height="24"

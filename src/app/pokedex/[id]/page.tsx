@@ -22,7 +22,7 @@ export default function Page() {
   if (isFetching) return <div className="text-2xl text-white"></div>;
 
   return (
-    <main className=" bg-gradient-to-b from-white to-[#D9D9D9]   gap-6 grow m-auto px-2 lg:px-12 relative">
+    <main className=" bg-gradient-to-b h-screen from-white to-[#D9D9D9]   gap-6 grow m-auto px-2 lg:px-12 relative">
       <section className="flex flex-col justify-center m-auto pt-12 items-center">
         <h3
           className={`text-[#CFCFCF] z-50 text-7xl lg:text-9xl  uppercase font-black ${Jockey.className}`}
@@ -50,7 +50,7 @@ export default function Page() {
       </section>
 
       <div className="max-w-4xl m-auto">
-        <section className="bg-white -mt-14 px-8 space-y-5 lg:px-16 pt-16 rounded-t-xl p-4 mx-4 text-black relative">
+        <section className="bg-white -mt-14 px-8 space-y-5 lg:px-16 pt-16 rounded-xl p-4 mx-4 text-black relative">
           <button
             className="p-2 px-4 rounded-md font-bold absolute -top-16 right-0 bg-white border-4 z-50 text-gray-500 "
             onClick={() => setIs3d(!is3d)}

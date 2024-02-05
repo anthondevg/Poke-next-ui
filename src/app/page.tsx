@@ -3,8 +3,8 @@ import Image from "next/image";
 import Link from "next/link";
 
 import { Jockey_One, Lato } from "next/font/google";
-const lato = Lato({ weight: "700", subsets: ["latin"] });
-const JockeyOne = Jockey_One({ subsets: ["latin"], weight: "400" });
+const lato = Lato({ weight: "900", subsets: ["latin"] });
+const JockeyOne = Jockey_One({ weight: "400", subsets: ["latin"] });
 
 export default function Home() {
   return (
@@ -17,6 +17,12 @@ export default function Home() {
         <div className="h-screen border-r-[#000041] border-r hidden md:block"></div>
         <div className="h-screen border-r-[#000041] border-r hidden md:block"></div>
       </div>
+
+      <nav>
+        <a className="absolute right-5 top-5 text-cyan-pkn" href="/pokedex">
+          Pokedex
+        </a>
+      </nav>
 
       <p className="text-center py-4">Developed by Anthondev</p>
       <header className="flex w-full justify-center flex-col items-center mt-52 gap-4 px-12 absolute top-0 z-50">
@@ -31,7 +37,7 @@ export default function Home() {
 
         <div className="text-center flex flex-col relative gap-6">
           <h4 className={`text-red-pkn text-2xl lg:text-3xl ${lato.className}`}>
-            Powerful Pokedex with Cards.
+            React.js Pokedex with Next
           </h4>
           <h3
             className={`text-cyan-pkn text-4xl lg:text-7xl font-bold ${JockeyOne.className} mb-4`}
@@ -39,7 +45,7 @@ export default function Home() {
             All Pokemon in just one place
           </h3>
           <Link href={"/api/auth/signin"}>
-            <Button className="bg-cyan-pkn">Login</Button>
+            <Button className="bg-red-pkn uppercase border-0">Login</Button>
           </Link>
 
           <div className="border-dashed border h-32 w-32 border-white/30 absolute -top-2 -left-2"></div>
