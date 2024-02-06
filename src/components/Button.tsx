@@ -3,7 +3,7 @@ import React from "react";
 type Button = {
   onClick?: () => {};
   children: React.ReactNode;
-  className: string;
+  className?: string;
 };
 
 export default function Button({ onClick, children, className }: Button) {
