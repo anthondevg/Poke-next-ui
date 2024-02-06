@@ -9,7 +9,7 @@ export default function Stat({ name, value, className }: StatType) {
   return (
     <div
       className={cn(
-        `flex justify-between  rounded-xl p-4 bg-gradient-to-r bg-slate-900 `,
+        `flex justify-between  rounded-xl p-4 bg-gradient-to-r bg-slate-200 `,
         className
       )}
     >

@@ -19,7 +19,7 @@ const useFetchPokeApi = (pokemonUrl: string) => {
       });
   }, []);
 
-  return { pokemon, isFetching };
+  return { pokemon, isFetching, setPokemon };
 };
 
 export { useFetchPokeApi };

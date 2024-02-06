@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from "react";
 import { Aldrich } from "next/font/google";
 const AldrichFont = Aldrich({ subsets: ["latin"], weight: "400" });
+import { motion } from "framer-motion";
 
 type CardProps = {
   borderColor: string;
@@ -26,62 +27,68 @@ export default function Card({
   }, [borderColor]);
 
   return (
-    <div
-      className={`rounded-xl shadow-lg h-[23rem] hover:border-2   ${getPokemonClass(
-        color,
-        "border"
-      )}  relative p-3 pb-6 bg-gradient-to-b from-black to-zinc-800 hover:bg-black z-0  ${className}`}
+    <motion.div
+      drag
+      dragConstraints={{ left: 0, right: 300 }}
+      dragElastic={0.2}
     >
-      <span
-        className={`basicBadge absolute top-2 left-3 text-stroke-3 uppercase px-2 p-0 font-bold text-md lg:text-lg  ${AldrichFont.className}`}
+      <div
+        className={`rounded-xl shadow-lg h-[23rem] hover:border-2   ${getPokemonClass(
+          color,
+          "border"
+        )}  relative border p-3 pb-6 bg-gradient-to-b from-black to-zinc-800 hover:bg-black z-0  ${className}`}
       >
-        basic
-      </span>
-      <div className="flex justify-between">
-        <div></div>
-        <div className="flex items-center">
-          <span className="font-bold text-stroke-3 mr-2 lg:text-lg">
-            HP {hp}
-          </span>
+        <span
+          className={`basicBadge absolute top-2 left-3 text-stroke-3 uppercase px-2 p-0 font-bold text-md lg:text-lg  ${AldrichFont.className}`}
+        >
+          basic
+        </span>
+        <div className="flex justify-between">
+          <div></div>
+          <div className="flex items-center">
+            <span className="font-bold text-stroke-3 mr-2 lg:text-lg">
+              HP {hp}
+            </span>
 
-          <div
-            className={`h-6 w-6 lg:w-5 lg:h-5 rounded-full z-50 ${getPokemonClass(
-              color,
-              "bg"
-            )}  shadow-xl`}
-          ></div>
+            <div
+              className={`h-6 w-6 lg:w-5 lg:h-5 rounded-full z-50 ${getPokemonClass(
+                color,
+                "bg"
+              )}  shadow-xl`}
+            ></div>
+          </div>
+        </div>
+        {children}
+
+        <div className="absolute right-0 bottom-0 -z-10">
+          <svg
+            width="150"
+            height="136"
+            viewBox="0 0 96 74"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M85.2414 0L0 74C19.0345 73.7533 60.0828 73.26 72 73.26C86.069 74 87.7241 71.78 91.8621 68.82C95.1724 66.452 96 61.42 96 59.2V19.24L79.4483 34.78L85.2414 0Z"
+              fill="url(#paint0_linear_5_333)"
+            />
+            <defs>
+              <linearGradient
+                id="paint0_linear_5_333"
+                x1="48"
+                y1="0"
+                x2="48"
+                y2="74"
+                gradientUnits="userSpaceOnUse"
+              >
+                <stop stopColor="black" />
+                <stop offset="0.697917" stopColor="black" stopOpacity="0" />
+              </linearGradient>
+            </defs>
+          </svg>
         </div>
       </div>
-      {children}
-
-      <div className="absolute right-0 bottom-0 -z-10">
-        <svg
-          width="150"
-          height="136"
-          viewBox="0 0 96 74"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M85.2414 0L0 74C19.0345 73.7533 60.0828 73.26 72 73.26C86.069 74 87.7241 71.78 91.8621 68.82C95.1724 66.452 96 61.42 96 59.2V19.24L79.4483 34.78L85.2414 0Z"
-            fill="url(#paint0_linear_5_333)"
-          />
-          <defs>
-            <linearGradient
-              id="paint0_linear_5_333"
-              x1="48"
-              y1="0"
-              x2="48"
-              y2="74"
-              gradientUnits="userSpaceOnUse"
-            >
-              <stop stopColor="black" />
-              <stop offset="0.697917" stopColor="black" stopOpacity="0" />
-            </linearGradient>
-          </defs>
-        </svg>
-      </div>
-    </div>
+    </motion.div>
   );
 }
 

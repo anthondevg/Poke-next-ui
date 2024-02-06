@@ -7,7 +7,7 @@ export default async function Page() {
   //const session = await getServerSession(options);
 
   const pokemons = await fetch(
-    "https://pokeapi.co/api/v2/pokemon/?offset=0&limit=100"
+    "https://pokeapi.co/api/v2/pokemon/?offset=0&limit=20"
   )
     .then((res) => res.json())
     .then((data: any) => data.results);

@@ -1,6 +1,6 @@
 "use client";
 import React, { useState } from "react";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 
 import uuid from "react-uuid";
 import { useFetchPokeApi } from "@/hooks/pokeapi";
@@ -9,54 +9,68 @@ import Stat from "../components/Stat";
 import Sprite from "../components/Sprite";
 import PokeType from "@/components/PokeType";
 import { getSprite } from "@/utilities/formatters";
-
-const Jockey = Jockey_One({ subsets: ["latin"], weight: "400" });
+import { motion, useMotionValue, useMotionValueEvent } from "framer-motion";
 
 export default function Page() {
   const params = useParams();
-  const [is3d, setIs3d] = useState(false);
+  const router = useRouter();
   const { pokemon, isFetching } = useFetchPokeApi(
     `https://pokeapi.co/api/v2/pokemon/${params.id}`
   );
+  const x = useMotionValue(0);
+
+  useMotionValueEvent(x, "change", (latest) => {
+    console.log(latest);
+
+    if (latest > 30) {
+      router.push(`/pokedex/${pokemon.id + 1}`);
+    }
+
+    if (latest < -50) {
+      if (pokemon.id == 1) return;
+      router.push(`/pokedex/${pokemon.id - 1}`);
+    }
+  });
 
   if (isFetching) return <div className="text-2xl "></div>;
 
   return (
-    <main className=" bg-gradient-to-b h-screen   gap-6 grow m-auto px-2 lg:px-12 relative">
+    <main className="overflow-hidden bg-gradient-to-b gap-6 grow items-center m-auto relative h-screen">
       <section className="flex flex-col justify-center m-auto pt-12 items-center">
-        <h3
-          className={`text-[#CFCFCF] z-50 text-7xl lg:text-9xl  uppercase font-black ${Jockey.className}`}
+        <motion.div
+          animate={{ y: 10 }}
+          whileHover={{ y: -2, shadow: "20px 10px 2px rgba(0, 0, 0, 1)" }}
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          whileTap={{ scale: 0.9 }}
         >
-          {pokemon.name}
-        </h3>
+          <h3
+            className={`text-[#CFCFCF] z-50 text-7xl lg:text-9xl  capitalize font-black `}
+          >
+            {pokemon.name}
+          </h3>
+        </motion.div>
         <h3
-          className={` text-[#CFCFCF]/30 text-7xl lg:text-9xl -mb-28 lg:-mb-72 uppercase font-black ${Jockey.className}`}
+          className={` text-[#CFCFCF]/30 text-7xl lg:text-9xl -mb-28 lg:-mb-72 capitalize font-black `}
         >
           {pokemon.name}
         </h3>
 
-        {is3d ? (
-          <img
-            src={pokemon.sprites && pokemon.sprites.other.home.front_default}
-            className="w-72  z-50"
-            alt="pokemon 3d image"
-          />
-        ) : (
-          <img
-            src={pokemon.sprites && getSprite(pokemon)}
-            className="w-72  z-50"
-          />
-        )}
+        <img
+          src={pokemon.sprites && getSprite(pokemon)}
+          className="w-72  z-50"
+        />
       </section>
 
       <div className="max-w-4xl m-auto">
-        <section className="bg-slate-800 border-4 -mt-14 px-8 space-y-5 lg:px-16 pt-16 rounded-xl p-4 mx-4 text-black relative">
-          <button
-            className="p-2 px-4 rounded-md font-bold absolute -top-16 right-0  border-4 z-50 text-gray-500 "
-            onClick={() => setIs3d(!is3d)}
-          >
-            {is3d ? "2D" : "3D"}
-          </button>
+        <motion.div
+          className="bg-slate-800 border-4 -mt-20 px-8 space-y-5 lg:px-16 pt-16 rounded-xl p-4 cursor-pointer mx-4 text-black relative"
+          drag="x"
+          dragConstraints={{ left: 0, right: 0 }}
+          style={{ x }}
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+        >
           <h2 className="text-sm text-slate-300  font-bold absolute top-4 right-4">
             # 000{pokemon.id}
           </h2>
@@ -91,7 +105,7 @@ export default function Page() {
               <Sprite sprite={pokemon.sprites.back_shiny} />
             </div>
           )}
-        </section>
+        </motion.div>
       </div>
     </main>
   );
