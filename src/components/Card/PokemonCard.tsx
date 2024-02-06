@@ -26,17 +26,11 @@ export default function PokemonCard({
     <div className={cn("grid-flow-row", className)}>
       <Link href={`/pokedex/${pokemon.name}`}>
         <motion.div
-          animate={{ y: 5 }}
-          whileHover={{ y: -2, shadow: "10px 10px 0 rgba(0, 0, 0, 0.2)" }}
-          drag
+          animate={{ y: 10 }}
+          whileHover={{ y: -2, shadow: "20px 10px 2px rgba(0, 0, 0, 1)" }}
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
-          dragConstraints={{
-            top: -50,
-            left: -50,
-            right: 50,
-            bottom: 50,
-          }}
+          whileTap={{ scale: 0.9 }}
         >
           <Card
             borderColor={getPokemonType(pokemon)}
@@ -44,10 +38,12 @@ export default function PokemonCard({
             className={className}
           >
             <img src={getSprite(pokemon)} className="w-36 mt-4 h-36 m-auto" />
+
             <div className="text-center">
               <p className="text-stroke-3-white text-3xl lg:text-3xl font-black text-center w-full capitalize">
                 {pokemon.name}
               </p>
+
               <p className="font-bold bg-gradient-to-b lg:text-xl mt-2 from-white to-gray-50 inline-block text-transparent bg-clip-text">
                 Type {getPokemonType(pokemon)}
               </p>

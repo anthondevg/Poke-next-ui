@@ -27,7 +27,7 @@ export default function Card({
 
   return (
     <div
-      className={`rounded-xl shadow-lg h-[23rem] hover:border   ${getPokemonClass(
+      className={`rounded-xl shadow-lg h-[23rem] hover:border-2   ${getPokemonClass(
         color,
         "border"
       )}  relative p-3 pb-6 bg-gradient-to-b from-black to-zinc-800 hover:bg-black z-0  ${className}`}

@@ -9,7 +9,7 @@ export default function Stat({ name, value, className }: StatType) {
   return (
     <div
       className={cn(
-        `flex justify-between  rounded-xl p-4 bg-gradient-to-r from-zinc-100 to-slate-50 hover:bg-gray-500`,
+        `flex justify-between  rounded-xl p-4 bg-gradient-to-r bg-slate-900 `,
         className
       )}
     >
