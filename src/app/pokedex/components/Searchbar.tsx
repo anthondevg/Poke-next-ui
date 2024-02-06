@@ -17,6 +17,7 @@ export default function Searchbar() {
           stroke="currentColor"
           className="w-6 h-6"
         >
+          xxx
           <path
             strokeLinecap="round"
             strokeLinejoin="round"
