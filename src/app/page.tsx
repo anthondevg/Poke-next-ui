@@ -45,7 +45,7 @@ export default function Home() {
             All Pokemon in just one place
           </h3>
           <Link href={"/api/auth/signin"}>
-            <Button className="bg-red-pkn uppercase border-0">Login</Button>
+            <Button className="bg-red-pkn uppercase">Login</Button>
           </Link>
 
           <div className="border-dashed border h-32 w-32 border-white/30 absolute -top-2 -left-2"></div>
