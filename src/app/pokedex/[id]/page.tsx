@@ -1,16 +1,14 @@
 "use client";
-import React, { useState } from "react";
+import React from "react";
 import { useParams, useRouter } from "next/navigation";
 
 import uuid from "react-uuid";
 import { useFetchPokeApi } from "@/hooks/pokeapi";
-import { Jockey_One } from "next/font/google";
 import Stat from "../components/Stat";
 import Sprite from "../components/Sprite";
 import PokeType from "@/components/PokeType";
 import { getSprite } from "@/utilities/formatters";
 import { motion, useMotionValue, useMotionValueEvent } from "framer-motion";
-import PokemonCard from "@/components/Card/PokemonCard";
 
 export default function Page() {
   const params = useParams();

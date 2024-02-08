@@ -24,7 +24,6 @@ export default function Home() {
         </a>
       </nav>
 
-      <p className="text-center py-4">Developed by Anthondev</p>
       <header className="flex w-full justify-center flex-col items-center mt-52 gap-4 px-12 absolute top-0 z-50">
         <div className="flex gap-1 align-middle items-center  p-4 relative">
           <h1 className="text-cyan-300 text-2xl lg:text-4xl uppercase font-bold">
@@ -32,22 +31,31 @@ export default function Home() {
           </h1>
 
           <Image src={"/Pikachu.png"} width={70} height={70} alt="pikachu" />
+
           <div className="border-dashed border h-12 w-20 border-white/30 absolute top-3 -left-2"></div>
         </div>
 
         <div className="text-center flex flex-col relative gap-6">
-          <h4 className={`text-red-pkn text-2xl lg:text-3xl ${lato.className}`}>
+          <h4 className={`text-red-pkn text-2xl lg:text-2xl ${lato.className}`}>
             React.js Pokedex with Next
           </h4>
           <h3
-            className={`text-cyan-pkn text-4xl lg:text-7xl font-bold ${JockeyOne.className} mb-4`}
+            className={`text-cyan-pkn text-4xl lg:text-5xl font-bold ${JockeyOne.className} mb-4`}
           >
             All Pokemon in just one place
           </h3>
           <Link href={"/api/auth/signin"}>
             <Button className="bg-red-pkn uppercase">Login</Button>
           </Link>
-
+          <p className="text-center text-white">
+            Developed by{" "}
+            <a
+              className="text-purple-300"
+              href="https://www.linkedin.com/in/anthondev/"
+            >
+              Anthony Gonzalez
+            </a>
+          </p>
           <div className="border-dashed border h-32 w-32 border-white/30 absolute -top-2 -left-2"></div>
         </div>
       </header>

@@ -6,8 +6,8 @@ import { Inter } from "next/font/google";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "PokeNextUI",
-  description: "Powerful Pokemon UI to see our favorite Pokemons.",
+  title: "PokeNextUI @anthondev",
+  description: "Pokemon UI to see our favorite Pokemons.",
 };
 
 export default function RootLayout({
