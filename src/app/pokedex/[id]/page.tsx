@@ -24,12 +24,12 @@ export default function Page() {
     console.log(latest);
 
     if (latest > 30) {
-      router.push(`/pokedex/${pokemon.id + 1}`);
+      if (pokemon.id == 1) return;
+      router.push(`/pokedex/${pokemon.id - 1}`);
     }
 
     if (latest < -50) {
-      if (pokemon.id == 1) return;
-      router.push(`/pokedex/${pokemon.id - 1}`);
+      router.push(`/pokedex/${pokemon.id + 1}`);
     }
   });
 
@@ -39,12 +39,8 @@ export default function Page() {
     transition: { duration: 3, repeat: Infinity }, // Loop indefinitely
   };
   return (
-    <main className="bg-gradient-to-b overflow-x-hidden pb-6 gap-6 grow items-center m-auto relative">
+    <main className="bg-gradient-to-b overflow-x-hidden md:h-screen pb-6 gap-6 grow items-center relative">
       <section className="flex flex-col justify-center m-auto lg:pt-12 items-center">
-        {/* <PokemonCard
-          pokemonUrl={`https://pokeapi.co/api/v2/pokemon/${pokemon.id - 1}`}
-          className="absolute top-2 -left-10 w-60 z-0"
-        /> */}
         <motion.div
           className="px-8 space-y-5 lg:px-16 pt-16 rounded-xl p-4 cursor-pointer mx-4 text-black relative"
           drag="x"
@@ -61,12 +57,12 @@ export default function Page() {
             className="z-50"
           >
             <h3
-              className={`text-[#CFCFCF] z-50 text-7xl lg:text-9xl  capitalize font-black `}
+              className={`text-white z-50 text-7xl lg:text-9xl  capitalize font-black `}
             >
               {pokemon.name}
             </h3>
             <h3
-              className={` text-[#CFCFCF]/5 text-7xl lg:text-9xl -mb-32 lg:-mb-72 capitalize font-black `}
+              className={`  text-[#CFCFCF]/5   text-7xl lg:text-9xl -mb-32 lg:-mb-72 capitalize font-black `}
             >
               {pokemon.name}
             </h3>
@@ -78,22 +74,48 @@ export default function Page() {
               />
             </motion.div>
 
-            <div className="px-1 mt-6 py-1 bg-slate-700 rounded-full w-44 mx-auto">
-              <div className=" bg-slate-950 w-5 h-5 mx-auto rounded-full"></div>
+            <div className="px-1 md:hidden mt-6 py-1 bg-slate-50 rounded-full w-44 mx-auto">
+              <div className=" bg-slate-700 w-5 h-5 mx-auto rounded-full"></div>
             </div>
           </motion.div>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="44"
+            height="44"
+            className="absolute top-52 left-5 text-white"
+          >
+            <path
+              fill="white"
+              d="M12 2a10 10 0 1 0 10 10A10.011 10.011 0 0 0 12 2zm0 18a8 8 0 1 1 8-8 8.009 8.009 0 0 1-8 8z"
+            />
+            <path
+              fill="white"
+              d="M13.293 7.293 8.586 12l4.707 4.707 1.414-1.414L11.414 12l3.293-3.293-1.414-1.414z"
+            />
+          </svg>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="44"
+            height="44"
+            className="absolute top-48 right-5 transform rotate-180 text-white"
+          >
+            <path
+              fill="white"
+              d="M12 2a10 10 0 1 0 10 10A10.011 10.011 0 0 0 12 2zm0 18a8 8 0 1 1 8-8 8.009 8.009 0 0 1-8 8z"
+            />
+            <path
+              fill="white"
+              d="M13.293 7.293 8.586 12l4.707 4.707 1.414-1.414L11.414 12l3.293-3.293-1.414-1.414z"
+            />
+          </svg>
         </motion.div>
-        {/* <PokemonCard
-          pokemonUrl={`https://pokeapi.co/api/v2/pokemon/${pokemon.id + 1}`}
-          className="absolute top-2 -right-10 w-60 z-0"
-        /> */}
       </section>
 
-      <div className="max-w-4xl m-auto px-12">
+      <div className="max-w-4xl m-auto px-12 flex gap-4 flex-col">
         <h2 className="text-sm text-slate-300  font-bold absolute top-4 right-4">
           # 000{pokemon.id}
         </h2>
-        <h2 className="text-2xl text-slate-500  font-bold">Stats</h2>
+        <h2 className="text-2xl text-white mb-4  font-bold">Stats</h2>
         <section className="grid-cols-1 gap-2 lg:grid-cols-2 lg:gap-4 grid">
           {pokemon.stats &&
             pokemon.stats
@@ -108,14 +130,14 @@ export default function Page() {
           <Stat name="Height" value={pokemon.height} />
           <Stat name="Weight" value={pokemon.weight} />
         </section>
-        <h2 className="text-2xl text-slate-500  font-bold mb-4">Types</h2>
-        <div className="flex gap-4">
+        <h2 className="text-2xl text-white font-bold">Types</h2>
+        <div className="flex gap-2 mb-4">
           {pokemon.types &&
             pokemon.types.map((pokemon: any) => (
               <PokeType key={uuid()} type={pokemon.type.name} />
             ))}
         </div>
-        <h2 className="text-2xl text-slate-500  font-bold mb-4">Sprites</h2>
+        <h2 className="text-2xl text-white  font-bold mb-4">Sprites</h2>
         {pokemon.sprites && (
           <div className="grid grid-cols-2 lg:grid-cols-4">
             <Sprite sprite={pokemon.sprites.front_default} />
