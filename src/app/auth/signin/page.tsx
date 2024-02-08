@@ -81,7 +81,7 @@ const SignIn = () => {
         <p className="text-center text-white">Built with </p>
         <a
           className="text-purple-300"
-          href="https://www.linkedin.com/in/anthondev/"
+          href="https://www.npmjs.com/package/next-auth/"
         >
           Next Auth
         </a>
