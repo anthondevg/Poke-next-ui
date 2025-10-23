@@ -1,16 +1,15 @@
-import React from "react";
-import PokemonCard from "@/components/Card/PokemonCard";
-import Searchbar from "./components/Searchbar";
-import { PokemonRef } from "@/models/Pokemon";
+import React from 'react'
+import PokemonCard from '@/components/Card/PokemonCard'
+import { PokemonRef } from '@/models/Pokemon'
 
 export default async function Page() {
   //const session = await getServerSession(options);
 
   const pokemons = await fetch(
-    "https://pokeapi.co/api/v2/pokemon/?offset=0&limit=20"
+    'https://pokeapi.co/api/v2/pokemon/?offset=0&limit=400'
   )
     .then((res) => res.json())
-    .then((data: any) => data.results);
+    .then((data: any) => data.results)
 
   return (
     <main className="p-4 px-6 m-auto pb-72 max-w-[1200px]">
@@ -21,5 +20,5 @@ export default async function Page() {
           ))}
       </div>
     </main>
-  );
+  )
 }

@@ -1,10 +1,10 @@
-import Button from "@/components/Button";
-import Image from "next/image";
-import Link from "next/link";
+import Button from '@/components/Button'
+import Image from 'next/image'
+import Link from 'next/link'
 
-import { Jockey_One, Lato } from "next/font/google";
-const lato = Lato({ weight: "900", subsets: ["latin"] });
-const JockeyOne = Jockey_One({ weight: "400", subsets: ["latin"] });
+import { Jockey_One, Lato } from 'next/font/google'
+const lato = Lato({ weight: '900', subsets: ['latin'] })
+const JockeyOne = Jockey_One({ weight: '400', subsets: ['latin'] })
 
 export default function Home() {
   return (
@@ -30,7 +30,7 @@ export default function Home() {
             <span className="text-red-pkn">Pokenext</span>-UI
           </h1>
 
-          <Image src={"/Pikachu.png"} width={70} height={70} alt="pikachu" />
+          <Image src={'/Pikachu.png'} width={70} height={70} alt="pikachu" />
 
           <div className="border-dashed border h-12 w-20 border-white/30 absolute top-3 -left-2"></div>
         </div>
@@ -44,17 +44,11 @@ export default function Home() {
           >
             All Pokemon in just one place
           </h3>
-          <Link href={"/api/auth/signin"}>
-            <Button className="bg-red-pkn uppercase">Login</Button>
+          <Link href={'/pokedex'}>
+            <Button className="bg-red-pkn uppercase">Open Pokedex</Button>
           </Link>
           <p className="text-center text-white">
-            Developed by{" "}
-            <a
-              className="text-purple-300"
-              href="https://www.linkedin.com/in/anthondev/"
-            >
-              Anthony Gonzalez
-            </a>
+            Developed by <p className="text-purple-300">Anthony Gonzalez</p>
           </p>
           <div className="border-dashed border h-32 w-32 border-white/30 absolute -top-2 -left-2"></div>
         </div>
@@ -63,5 +57,5 @@ export default function Home() {
       <div className="w-44 h-44 bg-[#01013A] bottom-2 left-0 absolute rounded-lg rotate-[165deg] animate-pulse"></div>
       <div className="w-36 h-36 bg-[#01013A] top-96 -right-20 absolute rounded-lg -rotate-[15deg] animate-pulse"></div>
     </div>
-  );
+  )
 }
