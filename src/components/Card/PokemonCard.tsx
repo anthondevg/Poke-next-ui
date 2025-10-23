@@ -1,33 +1,33 @@
-"use client";
-import React, { useEffect, useState } from "react";
-import Card from "./Card";
-import Link from "next/link";
+'use client'
+import React, { useEffect, useState } from 'react'
+import Card from './Card'
+import Link from 'next/link'
 import {
   formatMoveName,
   getPokemonType,
   getSprite,
-} from "@/utilities/formatters";
-import { PokemonCardsProps } from "@/models/Pokemon";
-import { cn } from "@/utilities/cn";
-import uuid from "react-uuid";
-import { useFetchPokeApi } from "@/hooks/pokeapi";
-import { motion } from "framer-motion";
-import PokemonCardSkeleton from "../Skeleton/PokemonCardSkeleton";
+} from '@/utilities/formatters'
+import { PokemonCardsProps } from '@/models/Pokemon'
+import { cn } from '@/utilities/cn'
+import uuid from 'react-uuid'
+import { useFetchPokeApi } from '@/hooks/pokeapi'
+import { motion } from 'framer-motion'
+import PokemonCardSkeleton from '../Skeleton/PokemonCardSkeleton'
 
 export default function PokemonCard({
   pokemonUrl,
   className,
 }: PokemonCardsProps) {
-  const { pokemon, isFetching } = useFetchPokeApi(pokemonUrl);
+  const { pokemon, isFetching } = useFetchPokeApi(pokemonUrl)
 
-  if (isFetching) return <PokemonCardSkeleton />;
-  if (!pokemon.sprites) return;
+  if (isFetching) return <PokemonCardSkeleton />
+  if (!pokemon.sprites) return
   return (
-    <div className={cn("grid-flow-row", className)}>
+    <div className={cn('grid-flow-row', className)}>
       <Link href={`/pokedex/${pokemon.name}`}>
         <motion.div
           animate={{ y: 10 }}
-          whileHover={{ y: -2, shadow: "20px 10px 2px rgba(0, 0, 0, 1)" }}
+          whileHover={{ y: -2, boxShadow: '20px 10px 2px rgba(0, 0, 0, 1)' }}
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           whileTap={{ scale: 0.9 }}
@@ -59,7 +59,7 @@ export default function PokemonCard({
                     >
                       <p>{formatMoveName(ability.ability.name)}</p>
                     </div>
-                  );
+                  )
                 })}
               </div>
             </div>
@@ -67,5 +67,5 @@ export default function PokemonCard({
         </motion.div>
       </Link>
     </div>
-  );
+  )
 }
