@@ -27,10 +27,9 @@ export default function PokemonCard({
       <Link href={`/pokedex/${pokemon.name}`}>
         <motion.div
           animate={{ y: 10 }}
-          whileHover={{ y: -2, boxShadow: '20px 10px 2px rgba(0, 0, 0, 1)' }}
+          whileHover={{ y: -1 }}
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
-          whileTap={{ scale: 0.9 }}
         >
           <Card
             borderColor={getPokemonType(pokemon)}

@@ -1,43 +1,134 @@
-"use client";
-import React from "react";
-import { useParams, useRouter } from "next/navigation";
+'use client'
+import { useParams, useRouter } from 'next/navigation'
+import Image from 'next/image'
 
-import uuid from "react-uuid";
-import { useFetchPokeApi } from "@/hooks/pokeapi";
-import Stat from "../components/Stat";
-import Sprite from "../components/Sprite";
-import PokeType from "@/components/PokeType";
-import { getSprite } from "@/utilities/formatters";
-import { motion, useMotionValue, useMotionValueEvent } from "framer-motion";
+import uuid from 'react-uuid'
+import { useFetchPokeApi } from '@/hooks/pokeapi'
+import Stat from '../components/Stat'
+import Sprite from '../components/Sprite'
+import PokeType from '@/components/PokeType'
+import { getSprite } from '@/utilities/formatters'
+import {
+  motion,
+  useMotionValue,
+  useMotionValueEvent,
+  useTransform,
+} from 'framer-motion'
 
 export default function Page() {
-  const params = useParams();
-  const router = useRouter();
+  const params = useParams()
+  const router = useRouter()
   const { pokemon, isFetching } = useFetchPokeApi(
     `https://pokeapi.co/api/v2/pokemon/${params.id}`
-  );
-  const x = useMotionValue(0);
+  )
+  const x = useMotionValue(0)
 
-  useMotionValueEvent(x, "change", (latest) => {
-    console.log(latest);
+  // Transform the x motion value to brightness values
+  // When dragging left or right, increase brightness
+  const brightness = useTransform(
+    x,
+    [-100, -50, 0, 50, 100], // Input range (drag distance)
+    [1.5, 1.2, 1, 1.2, 1.5] // Output range (brightness multiplier)
+  )
 
-    if (latest > 30) {
-      if (pokemon.id == 1) return;
-      router.push(`/pokedex/${pokemon.id - 1}`);
+  // Transform x value to background filter for more vibrant effect
+  const backgroundFilter = useTransform(
+    x,
+    [-100, -50, 0, 50, 100],
+    [
+      'brightness(1.5) saturate(1.3) contrast(1.1)',
+      'brightness(1.2) saturate(1.15) contrast(1.05)',
+      'brightness(1) saturate(1) contrast(1)',
+      'brightness(1.2) saturate(1.15) contrast(1.05)',
+      'brightness(1.5) saturate(1.3) contrast(1.1)',
+    ]
+  )
+
+  useMotionValueEvent(x, 'change', (latest) => {
+    console.log(latest)
+
+    if (latest > 10) {
+      if (pokemon.id == 1) return
+      router.push(`/pokedex/${pokemon.id - 1}`)
     }
 
-    if (latest < -50) {
-      router.push(`/pokedex/${pokemon.id + 1}`);
+    if (latest < -10) {
+      router.push(`/pokedex/${pokemon.id + 1}`)
     }
-  });
+  })
 
-  if (isFetching) return <div className="text-2xl "></div>;
+  const handlePrevious = () => {
+    if (pokemon.id > 1) {
+      router.push(`/pokedex/${pokemon.id - 1}`)
+    }
+  }
+
+  const handleNext = () => {
+    router.push(`/pokedex/${pokemon.id + 1}`)
+  }
+
+  if (isFetching)
+    return (
+      <div className="h-screen bg-gradient-to-b from-gray-900 to-black flex flex-col items-center justify-center">
+        <div className="flex flex-col items-center space-y-6">
+          <Image
+            src={'/Pikachu.png'}
+            width={240}
+            height={240}
+            alt="pikachu"
+            className="animate-pulse"
+          />
+          <motion.div
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+          >
+            <motion.h2
+              className="text-yellow-400 text-2xl font-bold text-center"
+              animate={{
+                scale: [1, 1.05, 1],
+                opacity: [0.8, 1, 0.8],
+              }}
+              transition={{
+                duration: 2,
+                repeat: Infinity,
+                ease: 'easeInOut',
+              }}
+            >
+              Loading your Pokémon...
+            </motion.h2>
+          </motion.div>
+
+          {/* Animated dots */}
+          <div className="flex space-x-1">
+            {[0, 1, 2].map((index) => (
+              <motion.div
+                key={index}
+                className="w-2 h-2 bg-yellow-400 rounded-full"
+                animate={{
+                  y: [0, -10, 0],
+                  opacity: [0.4, 1, 0.4],
+                }}
+                transition={{
+                  duration: 1.5,
+                  repeat: Infinity,
+                  delay: index * 0.2,
+                  ease: 'easeInOut',
+                }}
+              />
+            ))}
+          </div>
+        </div>
+      </div>
+    )
   const animationProps = {
     y: [0, 20, 0], // Animate along the y-axis from 0 to 100 and back to 0
     transition: { duration: 3, repeat: Infinity }, // Loop indefinitely
-  };
+  }
   return (
-    <main className="bg-gradient-to-b overflow-x-hidden md:h-screen pb-6 gap-6 grow items-center relative">
+    <motion.main
+      className="bg-gradient-to-b overflow-x-hidden md:h-screen pb-6 gap-6 grow items-center relative"
+      style={{ filter: backgroundFilter }}
+    >
       <section className="flex flex-col justify-center m-auto lg:pt-12 items-center">
         <motion.div
           className="px-8 space-y-5 lg:px-16 pt-16 rounded-xl p-4 cursor-pointer mx-4 text-black relative"
@@ -68,7 +159,10 @@ export default function Page() {
             <motion.div animate={animationProps}>
               <img
                 src={pokemon.sprites && getSprite(pokemon)}
-                className="lg:w-96 w-44 mx-auto z-50"
+                alt={`${pokemon.name} sprite`}
+                className="lg:w-96 w-44 mx-auto z-50 select-none pointer-events-none"
+                draggable={false}
+                onDragStart={(e) => e.preventDefault()}
               />
             </motion.div>
 
@@ -80,7 +174,8 @@ export default function Page() {
             xmlns="http://www.w3.org/2000/svg"
             width="44"
             height="44"
-            className="absolute top-52 left-5 text-white"
+            className="absolute top-52 left-5 text-white cursor-pointer hover:scale-110 transition-transform"
+            onClick={handlePrevious}
           >
             <path
               fill="white"
@@ -95,7 +190,8 @@ export default function Page() {
             xmlns="http://www.w3.org/2000/svg"
             width="44"
             height="44"
-            className="absolute top-48 right-5 transform rotate-180 text-white"
+            className="absolute top-48 right-5 transform rotate-180 text-white cursor-pointer hover:scale-110 transition-transform"
+            onClick={handleNext}
           >
             <path
               fill="white"
@@ -106,6 +202,10 @@ export default function Page() {
               d="M13.293 7.293 8.586 12l4.707 4.707 1.414-1.414L11.414 12l3.293-3.293-1.414-1.414z"
             />
           </svg>
+
+          <div className="h-6  bg-white/10 rounded-full flex justify-center items-center p-6 mt-12">
+            <span className="bg-white/60 rounded-full mx-auto h-8 w-8 my-2"></span>
+          </div>
         </motion.div>
       </section>
 
@@ -135,7 +235,9 @@ export default function Page() {
               <PokeType key={uuid()} type={pokemon.type.name} />
             ))}
         </div>
-        <h2 className="text-2xl text-white  font-bold mb-4">Sprites</h2>
+        <h2 className="text-2xl text-white  font-bold mb-4">
+          Sprites from Game [Normal/Shiny]
+        </h2>
         {pokemon.sprites && (
           <div className="grid grid-cols-2 lg:grid-cols-4">
             <Sprite sprite={pokemon.sprites.front_default} />
@@ -145,6 +247,6 @@ export default function Page() {
           </div>
         )}
       </div>
-    </main>
-  );
+    </motion.main>
+  )
 }

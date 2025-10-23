@@ -1,16 +1,16 @@
-"use client";
+'use client'
 
-import React, { useEffect, useState } from "react";
-import { Aldrich } from "next/font/google";
-const AldrichFont = Aldrich({ subsets: ["latin"], weight: "400" });
-import { motion } from "framer-motion";
+import React, { useEffect, useState } from 'react'
+import { Aldrich } from 'next/font/google'
+const AldrichFont = Aldrich({ subsets: ['latin'], weight: '400' })
+import { motion } from 'framer-motion'
 
 type CardProps = {
-  borderColor: string;
-  hp: number;
-  children: React.ReactNode;
-  className?: string;
-};
+  borderColor: string
+  hp: number
+  children: React.ReactNode
+  className?: string
+}
 
 export default function Card({
   children,
@@ -18,24 +18,20 @@ export default function Card({
   hp,
   className,
 }: CardProps) {
-  const [color, setColor] = useState("");
+  const [color, setColor] = useState('')
   // init tailwind classes to be available for the bul
-  getPokemonClass("grass", "border");
+  getPokemonClass('grass', 'border')
 
   useEffect(() => {
-    setColor(borderColor);
-  }, [borderColor]);
+    setColor(borderColor)
+  }, [borderColor])
 
   return (
-    <motion.div
-      drag
-      dragConstraints={{ left: 0, right: 300 }}
-      dragElastic={0.2}
-    >
+    <motion.div drag dragConstraints={{ left: 0, right: 300 }}>
       <div
         className={`rounded-xl shadow-lg h-[23rem] hover:border-2   ${getPokemonClass(
           color,
-          "border"
+          'border'
         )}  relative border p-3 pb-6 bg-gradient-to-b from-black to-zinc-800 hover:bg-black z-0  ${className}`}
       >
         <span
@@ -53,7 +49,7 @@ export default function Card({
             <div
               className={`h-6 w-6 lg:w-5 lg:h-5 rounded-full z-50 ${getPokemonClass(
                 color,
-                "bg"
+                'bg'
               )}  shadow-xl`}
             ></div>
           </div>
@@ -89,7 +85,7 @@ export default function Card({
         </div>
       </div>
     </motion.div>
-  );
+  )
 }
 
 function getPokemonClass(pokemonType: string, htmlProperty: string) {
@@ -97,42 +93,42 @@ function getPokemonClass(pokemonType: string, htmlProperty: string) {
   // for example bg-${colorVariable} won't work, won't exists because
   // tailwind purges all not existing classes at build time.
   const borderColors = {
-    bug: "border-orange-300",
-    dark: "border-purple-700",
-    electric: "border-electric-pkn",
-    normal: "border-cyan-pkn",
-    grass: "border-grass-pkn",
-    poison: "border-purple-500",
-    fairy: "border-pink-700",
-    fighting: "border-brown-600",
-    fire: "border-fire-pkn",
-    flying: "border-white",
-    ghost: "border-purple-900",
-    water: "border-blue-400",
-    psychic: "border-pink-500",
-    rock: "border-yellow-400",
-  } as any;
+    bug: 'border-orange-300',
+    dark: 'border-purple-700',
+    electric: 'border-electric-pkn',
+    normal: 'border-cyan-pkn',
+    grass: 'border-grass-pkn',
+    poison: 'border-purple-500',
+    fairy: 'border-pink-700',
+    fighting: 'border-brown-600',
+    fire: 'border-fire-pkn',
+    flying: 'border-white',
+    ghost: 'border-purple-900',
+    water: 'border-blue-400',
+    psychic: 'border-pink-500',
+    rock: 'border-yellow-400',
+  } as any
 
   const bgColors = {
-    bug: "bg-orange-300",
-    dark: "bg-purple-700",
-    electric: "bg-electric-pkn",
-    normal: "bg-cyan-pkn",
-    grass: "bg-grass-pkn",
-    poison: "bg-purple-500",
-    fairy: "bg-pink-700",
-    fighting: "bg-brown-600",
-    fire: "bg-fire-pkn",
-    flying: "bg-white",
-    ghost: "bg-purple-900",
-    water: "bg-blue-400",
-    psychic: "bg-pink-500",
-    rock: "bg-yellow-400",
-  } as any;
+    bug: 'bg-orange-300',
+    dark: 'bg-purple-700',
+    electric: 'bg-electric-pkn',
+    normal: 'bg-cyan-pkn',
+    grass: 'bg-grass-pkn',
+    poison: 'bg-purple-500',
+    fairy: 'bg-pink-700',
+    fighting: 'bg-brown-600',
+    fire: 'bg-fire-pkn',
+    flying: 'bg-white',
+    ghost: 'bg-purple-900',
+    water: 'bg-blue-400',
+    psychic: 'bg-pink-500',
+    rock: 'bg-yellow-400',
+  } as any
 
-  if (htmlProperty === "border") {
-    return `${borderColors[pokemonType]}`;
-  } else if (htmlProperty === "bg") {
-    return `${bgColors[pokemonType]}`;
+  if (htmlProperty === 'border') {
+    return `${borderColors[pokemonType]}`
+  } else if (htmlProperty === 'bg') {
+    return `${bgColors[pokemonType]}`
   }
 }

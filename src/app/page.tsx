@@ -10,12 +10,12 @@ export default function Home() {
   return (
     <div className="relative overflow-hidden">
       <div className="w-full grid md:grid-cols-6 grid-cols-4 z-0">
-        <div className="h-screen border-r-[#000041] border-r"></div>
+        <div className="h-screen border-r-[#3e3e83] border-r"></div>
         <div className="h-screen border-r-[#000041] border-r"></div>
         <div className="h-screen border-r-[#000041] border-r"></div>
         <div className="h-screen border-r-[#000041] border-r"></div>
         <div className="h-screen border-r-[#000041] border-r hidden md:block"></div>
-        <div className="h-screen border-r-[#000041] border-r hidden md:block"></div>
+        <div className="h-screen border-r-[#3e3e83] border-r hidden md:block"></div>
       </div>
 
       <nav>
@@ -30,9 +30,15 @@ export default function Home() {
             <span className="text-red-pkn">Pokenext</span>-UI
           </h1>
 
-          <Image src={'/Pikachu.png'} width={70} height={70} alt="pikachu" />
+          <Image
+            src={'/Pikachu.png'}
+            width={70}
+            height={70}
+            alt="pikachu"
+            className="animate-pulse"
+          />
 
-          <div className="border-dashed border h-12 w-20 border-white/30 absolute top-3 -left-2"></div>
+          <div className="border-dashed border h-12 w-20 border-white/50 absolute top-3 -left-2"></div>
         </div>
 
         <div className="text-center flex flex-col relative gap-6">
