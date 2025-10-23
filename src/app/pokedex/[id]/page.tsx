@@ -233,6 +233,13 @@ export default function Page() {
         <h2 className="text-sm text-slate-300  font-bold absolute top-4 right-4">
           # 000{pokemon.id}
         </h2>
+        <div className="mx-auto">
+          <h3
+            className={`text-white z-50 text-3xl w-fit  border px-4 rounded-full my-4 text-center italic  capitalize font-black `}
+          >
+            {pokemon.name}
+          </h3>
+        </div>
         <h2 className="text-2xl text-white mb-4  font-bold">Stats</h2>
         <section className="grid-cols-1 gap-2 lg:grid-cols-2 lg:gap-4 grid">
           {pokemon.stats &&
