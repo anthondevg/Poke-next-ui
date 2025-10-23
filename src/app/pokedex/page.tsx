@@ -3,8 +3,6 @@ import PokemonCard from '@/components/Card/PokemonCard'
 import { PokemonRef } from '@/models/Pokemon'
 
 export default async function Page() {
-  //const session = await getServerSession(options);
-
   const pokemons = await fetch(
     'https://pokeapi.co/api/v2/pokemon/?offset=0&limit=400'
   )

@@ -1,22 +1,15 @@
-import { getServerSession } from "next-auth";
-import React from "react";
-import { options } from "../api/auth/[...nextauth]/options";
-//server
-export default async function page() {
-  const session = await getServerSession(options);
+import React from 'react'
+
+export default function page() {
   return (
-    <>
-      {session ? (
-        <section className=" p-4">
-          Nombre: {session.user?.name} <br /> Email: {session.user?.email}
-          <img
-            src={session.user?.image || ""}
-            className="w-24 h-24 rounded-full border-1 border-red-400"
-          />
-        </section>
-      ) : (
-        <h1>not access</h1>
-      )}
-    </>
-  );
+    <section className="p-4">
+      <h1 className="text-2xl font-bold text-white mb-4">Profile Page</h1>
+      <p className="text-gray-300">
+        Authentication has been removed from this application.
+      </p>
+      <p className="text-gray-300 mt-2">
+        This page previously showed user session information.
+      </p>
+    </section>
+  )
 }

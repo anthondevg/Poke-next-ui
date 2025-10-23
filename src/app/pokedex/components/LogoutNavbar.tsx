@@ -1,12 +1,18 @@
-"use client";
-import Button from "@/components/Button";
-import { signOut } from "next-auth/react";
-import React from "react";
+'use client'
+import Button from '@/components/Button'
+import React from 'react'
 
 export default function LogoutNavbar() {
   return (
     <div>
-      <Button onClick={signOut}>Cerrar sesion</Button>
+      <Button
+        onClick={() => {
+          console.log('Logout functionality removed')
+          return {}
+        }}
+      >
+        Cerrar sesion
+      </Button>
     </div>
-  );
+  )
 }
