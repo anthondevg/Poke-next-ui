@@ -1,6 +1,7 @@
 'use client'
 import { useParams, useRouter } from 'next/navigation'
 import Image from 'next/image'
+import { useRef, useEffect } from 'react'
 
 import uuid from 'react-uuid'
 import { useFetchPokeApi } from '@/hooks/pokeapi'
@@ -22,6 +23,13 @@ export default function Page() {
     `https://pokeapi.co/api/v2/pokemon/${params.id}`
   )
   const x = useMotionValue(0)
+  const lastNavigationTime = useRef(0)
+  const hasNavigated = useRef(false)
+
+  // Reset navigation flag when component mounts or params change
+  useEffect(() => {
+    hasNavigated.current = false
+  }, [params.id])
 
   // Transform the x motion value to brightness values
   // When dragging left or right, increase brightness
@@ -47,12 +55,24 @@ export default function Page() {
   useMotionValueEvent(x, 'change', (latest) => {
     console.log(latest)
 
-    if (latest > 10) {
-      if (pokemon.id == 1) return
+    const now = Date.now()
+    // Prevent navigation if already navigated recently (within 1 second)
+    if (hasNavigated.current || now - lastNavigationTime.current < 1000) {
+      return
+    }
+
+    if (latest > 50) {
+      // Increased threshold to prevent accidental triggers
+      if (pokemon.id === 1) return
+      hasNavigated.current = true
+      lastNavigationTime.current = now
       router.push(`/pokedex/${pokemon.id - 1}`)
     }
 
-    if (latest < -10) {
+    if (latest < -50) {
+      // Increased threshold to prevent accidental triggers
+      hasNavigated.current = true
+      lastNavigationTime.current = now
       router.push(`/pokedex/${pokemon.id + 1}`)
     }
   })
