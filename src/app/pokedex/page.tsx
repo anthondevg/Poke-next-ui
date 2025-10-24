@@ -1,4 +1,5 @@
 import PokemonCard from '@/components/Card/PokemonCard'
+import GoToTopButton from '@/components/GoToTopButton'
 import { PokemonRef } from '@/models/Pokemon'
 
 export default async function Page() {
@@ -16,6 +17,9 @@ export default async function Page() {
             <PokemonCard key={pokemonRef.name} pokemonUrl={pokemonRef.url} />
           ))}
       </div>
+
+      {/* Go to top Pokeball button */}
+      <GoToTopButton />
     </main>
   )
 }
