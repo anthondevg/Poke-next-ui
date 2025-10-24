@@ -1,11 +1,11 @@
-import React from "react";
-import LogoutNavbar from "@/app/pokedex/components/LogoutNavbar";
-import Link from "next/link";
+import React from 'react'
+import LogoutNavbar from '@/app/pokedex/components/LogoutNavbar'
+import Link from 'next/link'
 
 export default function Navbar() {
   return (
-    <nav className="bg-red-pkn lg:bg-slate-800 flex justify-between py-3 px-4  z-50  w-full">
-      <Link href="/pokedex">
+    <nav className="bg-red-pkn flex justify-between py-3 px-4  z-50  w-full">
+      <Link href="/">
         <svg
           height="24"
           viewBox="0 0 24 24"
@@ -26,5 +26,5 @@ export default function Navbar() {
 
       <div></div>
     </nav>
-  );
+  )
 }
