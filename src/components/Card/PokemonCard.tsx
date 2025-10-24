@@ -47,7 +47,7 @@ export default function PokemonCard({
             />
 
             <div className="text-center">
-              <p className="text-stroke-3-white text-3xl lg:text-3xl font-black text-center w-full capitalize">
+              <p className="text-stroke-3-white text-xl lg:text-3xl font-black text-center w-full capitalize">
                 {pokemon.name}
               </p>
 

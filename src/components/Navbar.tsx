@@ -4,7 +4,7 @@ import Link from 'next/link'
 
 export default function Navbar() {
   return (
-    <nav className="bg-red-pkn flex justify-between py-3 px-4  z-50  w-full">
+    <nav className="bg-red-pkn flex justify-between py-3 px-4 z-50 w-full sticky top-0 shadow-lg">
       <Link href="/">
         <svg
           height="24"
