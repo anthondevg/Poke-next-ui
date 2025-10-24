@@ -12,7 +12,7 @@ type CardProps = {
   className?: string
 }
 
-export default function Card({
+export default function CardWrapper({
   children,
   borderColor,
   hp,
@@ -20,19 +20,18 @@ export default function Card({
 }: CardProps) {
   const [color, setColor] = useState('')
   // init tailwind classes to be available for the bul
-  getPokemonClass('grass', 'border')
 
   useEffect(() => {
     setColor(borderColor)
   }, [borderColor])
 
   return (
-    <motion.div drag dragConstraints={{ left: 0, right: 300 }}>
+    <motion.div>
       <div
-        className={`rounded-xl shadow-lg h-[23rem] hover:border-2   ${getPokemonClass(
+        className={`rounded-xl shadow-lg hover:shadow-2xl h-[23rem]  ${getPokemonClass(
           color,
           'border'
-        )}  relative border p-3 pb-6 bg-gradient-to-b from-black to-zinc-800 hover:bg-black z-0  ${className}`}
+        )}  relative border-2 p-3 pb-6 bg-gradient-to-b from-black to-zinc-800 hover:bg-black z-0  ${className}`}
       >
         <span
           className={`basicBadge absolute top-2 left-3 text-stroke-3 uppercase px-2 p-0 font-bold text-md lg:text-lg  ${AldrichFont.className}`}

@@ -1,7 +1,7 @@
 'use client'
-import React, { useEffect, useState } from 'react'
-import Card from './Card'
+import Card from './CardWrapper'
 import Link from 'next/link'
+import Image from 'next/image'
 import {
   formatMoveName,
   getPokemonType,
@@ -13,6 +13,8 @@ import uuid from 'react-uuid'
 import { useFetchPokeApi } from '@/hooks/pokeapi'
 import { motion } from 'framer-motion'
 import PokemonCardSkeleton from '../Skeleton/PokemonCardSkeleton'
+import PokeType from '@/components/PokeType'
+import CardWrapper from './CardWrapper'
 
 export default function PokemonCard({
   pokemonUrl,
@@ -26,26 +28,32 @@ export default function PokemonCard({
     <div className={cn('grid-flow-row', className)}>
       <Link href={`/pokedex/${pokemon.name}`}>
         <motion.div
-          animate={{ y: 10 }}
-          whileHover={{ y: -1 }}
+          animate={{ y: 7 }}
+          whileHover={{ y: -0.5 }}
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
         >
-          <Card
+          <CardWrapper
             borderColor={getPokemonType(pokemon)}
             hp={pokemon.stats[0].base_stat}
             className={className}
           >
-            <img src={getSprite(pokemon)} className="w-36 mt-4 h-36 m-auto" />
+            <Image
+              src={getSprite(pokemon)}
+              alt={`${pokemon.name} sprite`}
+              width={144}
+              height={144}
+              className="mt-4 m-auto"
+            />
 
             <div className="text-center">
               <p className="text-stroke-3-white text-3xl lg:text-3xl font-black text-center w-full capitalize">
                 {pokemon.name}
               </p>
 
-              <p className="font-bold bg-gradient-to-b lg:text-xl mt-2 from-white to-gray-50 inline-block text-transparent bg-clip-text">
-                Type {getPokemonType(pokemon)}
-              </p>
+              <div className="flex justify-center mt-2">
+                <PokeType type={getPokemonType(pokemon)} />
+              </div>
             </div>
 
             <div className="z-10 mt-4">
@@ -62,7 +70,7 @@ export default function PokemonCard({
                 })}
               </div>
             </div>
-          </Card>
+          </CardWrapper>
         </motion.div>
       </Link>
     </div>
