@@ -24,7 +24,7 @@ export default function CardsWithSearch({
     : pokemons
   return (
     <>
-      <div className="w-full flex justify-center mb-6">
+      <div className="w-full flex justify-center mb-6 px-4">
         <input
           type="text"
           value={search}
