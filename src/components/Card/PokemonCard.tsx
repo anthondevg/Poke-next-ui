@@ -20,15 +20,59 @@ import CardWrapper from './CardWrapper'
 export default function PokemonCard({
   pokemonUrl,
   className,
-}: PokemonCardsProps) {
+  tiltEnabled = false,
+}: PokemonCardsProps & { tiltEnabled?: boolean }) {
   const { pokemon, isFetching } = useFetchPokeApi(pokemonUrl)
 
   if (isFetching) return <PokemonCardSkeleton />
-  if (!pokemon.sprites) return
+  if (!pokemon.sprites) return null
   return (
     <div className={cn('grid-flow-row', className)}>
       <Link href={`/pokedex/${pokemon.name}`}>
-        <Tilt3D>
+        {tiltEnabled ? (
+          <Tilt3D>
+            <CardWrapper
+              borderColor={getPokemonType(pokemon)}
+              hp={pokemon.stats[0].base_stat}
+              className={className}
+            >
+              <Image
+                src={getSprite(pokemon)}
+                alt={`${pokemon.name} sprite`}
+                width={144}
+                height={144}
+                className="mt-4 m-auto"
+              />
+
+              <div className="text-center">
+                <p className="text-stroke-3-white text-xl lg:text-3xl font-black text-center w-full capitalize">
+                  {pokemon.name}
+                </p>
+
+                <div className="flex justify-center mt-2">
+                  <PokeType type={getPokemonType(pokemon)} />
+                </div>
+              </div>
+
+              <div className="z-10 mt-4">
+                <div className="flex flex-col pl-4">
+                  {pokemon.abilities.map((ability: any) => {
+                    return (
+                      <div
+                        key={uuid()}
+                        className="flex flex-col text-sm text-gray-50"
+                      >
+                        <p className="text-stroke-3-white text-md font-semibold text-left w-full capitalize">
+                          {formatMoveName(ability.ability.name)}
+                        </p>
+                      </div>
+                    )
+                  })}
+                </div>
+              </div>
+            </CardWrapper>
+          </Tilt3D>
+        ) : (
           <CardWrapper
             borderColor={getPokemonType(pokemon)}
             hp={pokemon.stats[0].base_stat}
@@ -69,11 +113,12 @@ export default function PokemonCard({
               </div>
             </div>
           </CardWrapper>
-        </Tilt3D>
+        )}
       </Link>
     </div>
   )
 }
+// ...existing code...
 
 // Cosmetic-only: 3D tilt effect wrapper
 function Tilt3D({ children }: { children: React.ReactNode }) {

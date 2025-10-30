@@ -8,9 +8,6 @@ const useFetchPokeApi = (pokemonUrl: string) => {
   useEffect(() => {
     setIsFetching(true)
 
-    // Create a minimum delay to show the loading screen
-    const minimumDelay = new Promise((resolve) => setTimeout(resolve, 100)) // 100 milliseconds delay
-
     const fetchData = fetch(pokemonUrl)
       .then((res) => res.json())
       .then((data) => {
@@ -19,7 +16,7 @@ const useFetchPokeApi = (pokemonUrl: string) => {
       .catch((err) => console.log(err))
 
     // Wait for both the API call and the minimum delay
-    Promise.all([fetchData, minimumDelay]).finally(() => {
+    Promise.all([fetchData]).finally(() => {
       setIsFetching(false)
     })
   }, [])
