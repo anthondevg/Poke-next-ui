@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react'
 
 export default function PokemonCardSkeleton() {
   return (
@@ -13,5 +13,5 @@ export default function PokemonCardSkeleton() {
 
       <div className="w-full bg-gray-900/20 h-52 rounded-xl p-4"></div>
     </div>
-  );
+  )
 }

@@ -60,7 +60,9 @@ export default function PokemonCard({
                       key={uuid()}
                       className="flex flex-col text-sm text-gray-50"
                     >
-                      <p>{formatMoveName(ability.ability.name)}</p>
+                      <p className="text-stroke-3-white text-md font-semibold text-left w-full capitalize">
+                        {formatMoveName(ability.ability.name)}
+                      </p>
                     </div>
                   )
                 })}

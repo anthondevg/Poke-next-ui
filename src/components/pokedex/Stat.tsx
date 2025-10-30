@@ -1,10 +1,9 @@
-import { cn } from "@/utilities/cn";
-import React from "react";
+import { cn } from '@/utilities/cn'
 type StatType = {
-  name: string;
-  value: string;
-  className?: string;
-};
+  name: string
+  value: string
+  className?: string
+}
 export default function Stat({ name, value, className }: StatType) {
   return (
     <div
@@ -16,5 +15,5 @@ export default function Stat({ name, value, className }: StatType) {
       <h3 className="text-2xl text-slate-900 capitalize  font-bold">{name}</h3>
       <h3 className="text-2xl text-slate-800 font-bold">{value}</h3>
     </div>
-  );
+  )
 }

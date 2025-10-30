@@ -1,5 +1,3 @@
-import React from 'react'
-import LogoutNavbar from '@/app/pokedex/components/LogoutNavbar'
 import Link from 'next/link'
 
 export default function Navbar() {
